@@ -1,0 +1,38 @@
+{% include "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <a href="{% url 'home' %}" class="inline-block mb-4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+        Home
+    </a>
+    <h2 class="text-2xl font-bold mb-6">{{ title }}</h2>
+
+    {% if video_info %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                    <th class="py-3 px-6 text-left">Resolution</th>
+                    <th class="py-3 px-6 text-left">Size</th>
+                    <th class="py-3 px-6 text-left">Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+                {% for video in video_info %}
+                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="py-3 px-6">{{ video.resolution }}</td>
+                    <td class="py-3 px-6">{{ video.size }}</td>
+                    <td class="py-3 px-6 cursor-pointer text-blue-500 hover:text-blue-700"
+                        onclick="downloadVideo('{{ video.download_url }}','{{ title }}')">
+                        Download
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-red-500">No video info available</p>
+    {% endif %}
+</div>
+{% endblock %}
